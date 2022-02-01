@@ -4,6 +4,8 @@ install_requires = [
   'numpy',
   'torch',
   'scipy',
+  'pyopenjtalk',
+  'librosa',
 ]
 
 packages = [
