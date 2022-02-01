@@ -1,4 +1,29 @@
 import torch
+import numpy as np
+
+def lecun_initialization(model):
+  """
+  LeCunパラメーター初期化
+  平均0, 標準偏差 1/sqrt(dim) で初期化
+  
+  Parameters
+  ----------
+  model (torch.nn.Module)
+  """
+
+  for param in model.parameters():
+    data = param.data
+    dim = data.dim()
+
+    if dim == 1:
+      data.zero_()
+    elif dim <= 4:
+      n = 1
+      for i in range(1,dim):
+        n *= data.size(i)
+      std = 1.0 / np.sqrt(n)
+      data.normal_(0, std)
+
 
 def make_pad_mask(lengths, maxlen=None):
   """
@@ -53,5 +78,9 @@ if __name__ == "__main__":
   print(make_pad_mask(lengths, 10))
   print(make_non_pad_mask(lengths))
   print(make_non_pad_mask(lengths, 10))
+
+  import torch.nn as nn
+  net = nn.Linear(10, 3)
+  lecun_initialization(net)
 
 
