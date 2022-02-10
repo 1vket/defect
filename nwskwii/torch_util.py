@@ -1,5 +1,25 @@
 import torch
 import numpy as np
+import yaml
+from attrdict import AttrDict
+
+def load_config(file_name: str):
+  """
+  load yaml file
+  
+  Parameters
+  ----------
+  file_name (str)
+  config.yaml file path
+
+  Returns
+  -------
+  (attrdict)
+  """
+  with open(file_name, 'r') as f:
+    config = AttrDict(yaml.safe_load(file_name))
+
+  return config
 
 def lecun_initialization(model):
   """
