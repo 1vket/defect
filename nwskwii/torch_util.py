@@ -17,7 +17,7 @@ def load_config(file_name: str):
   (attrdict)
   """
   with open(file_name, 'r') as f:
-    config = AttrDict(yaml.safe_load(file_name))
+    config = AttrDict(yaml.safe_load(f))
 
   return config
 
