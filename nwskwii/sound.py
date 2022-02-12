@@ -73,7 +73,7 @@ class FeatureExtractor():
     mel_low_freq = self.Herz2Mel(self.low_frequency)
 
     mel_points = np.linspace(
-      mel_low_freq, mel_high_freq, self.num_mel_bins*2)
+      mel_low_freq, mel_high_freq, self.num_mel_bins+2)
 
     dim_spectrum = int(self.fft_size / 2) + 1
 
@@ -90,7 +90,7 @@ class FeatureExtractor():
 
         mel = self.Herz2Mel(freq)
 
-        if left_mel <= mel <= right_mel:
+        if left_mel < mel < right_mel:
           if mel <= center_mel:
             weight = (mel - left_mel) / (center_mel - left_mel)
           else:
