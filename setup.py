@@ -6,6 +6,7 @@ install_requires = [
   'scipy',
   'pyopenjtalk',
   'librosa',
+  'pyyaml',
 ]
 
 packages = [
