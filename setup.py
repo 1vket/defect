@@ -7,6 +7,7 @@ install_requires = [
   'pyopenjtalk',
   'librosa',
   'pyyaml',
+  'attrdict',
 ]
 
 packages = [
