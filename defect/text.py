@@ -58,16 +58,16 @@ def sentence2phoneSymbol(
 
     if p3 == 'sil':
       if i == 0:
-        phone_synbol.append('^')
+        phone_synbol.append(sos)
       elif i == N-1:
         e3 = numeric_feature_by_regex(r"\!(\d+)_", context)
         if e3 == 0:
-          phone_synbol.append("$")
+          phone_synbol.append(eos)
         elif e3 == 1:
-          phone_synbol.append("?")
+          phone_synbol.append(eos_q)
       continue
     elif p3 == "pau":
-      phone_synbol.append("_")
+      phone_synbol.append(pose)
       continue
     else:
       phone_synbol.append(p3)
@@ -81,15 +81,19 @@ def sentence2phoneSymbol(
     next_a2 = numeric_feature_by_regex(r"\+(\d+)\+", full_contexts[i+1]) 
 
     if a3 == 1 and next_a2 == 1:
-      phone_synbol.append('#')
+      phone_synbol.append(accent_border)
     elif a1 == 0 and next_a2 == a2+1 and a2 != f1:
-      phone_synbol.append(']')
+      phone_synbol.append(pitch_down)
     elif a2 == 1 and next_a2 == 2:
-      phone_synbol.append('[')
+      phone_synbol.append(pitch_up)
 
   return phone_synbol
+
+def s2ps(sentence, **kwargs):
+  return sentence2phoneSymbol(sentence, **kwargs)
 
 
 if __name__ == "__main__":
   text = "今日の天気は？端，箸，あの橋です"
   print(*sentence2phoneSymbol(text, drop_unvoiced_vowels=True))
+  print(s2ps(text, drop_unvoiced_vowels=True))
